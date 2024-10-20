@@ -16,9 +16,26 @@ class TokenType(Enum):
     RBRACE=auto()
     DOT=auto()
     EQUALS=auto()
+    EQUALS_EQUALS=auto()  # ==
+    NOT_EQUALS=auto()     # !=
+    LT=auto()             # <
+    GT=auto()             # >
+    LTE=auto()            # <=
+    GTE=auto()            # >=
     TTDOT=auto()
     AUTO=auto()
+    IF=auto()
+    ELSE=auto()
+    ELIF=auto()
+    IMPORT=auto()
+    HASHTAG=auto()
+    INCLUDE=auto()
+    FUNC=auto()
+    TO=auto()
+    STRING=auto()
+    RETURN=auto()
     EOF=auto()
+
 
     def __str__(self):
         return self.name

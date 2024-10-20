@@ -18,12 +18,41 @@ class Lexer:
             if self.cur.isspace():
                 self.advance()
                 continue
+
+            # İki karakterli operatörleri kontrol et
+            if self.cur == '=':
+                self.advance()
+                if self.cur == '=':
+                    self.advance()
+                    return Token(TokenType.EQUALS_EQUALS, '==')
+                return Token(TokenType.EQUALS, '=')
+            if self.cur == '!':
+                self.advance()
+                if self.cur == '=':
+                    self.advance()
+                    return Token(TokenType.NOT_EQUALS, '!=')
+                raise Exception(f'Invalid token: {self.cur}')
+            if self.cur == '>':
+                self.advance()
+                if self.cur == '=':
+                    self.advance()
+                    return Token(TokenType.GTE, '>=')
+                return Token(TokenType.GT, '>')
+            if self.cur == '<':
+                self.advance()
+                if self.cur == '=':
+                    self.advance()
+                    return Token(TokenType.LTE, '<=')
+                return Token(TokenType.LT, '<')
             match self.cur:
                 case '+':
                     self.advance()
                     return Token(TokenType.PLUS, '+')
                 case '-':
                     self.advance()
+                    if self.cur == '>':
+                        self.advance()
+                        return Token(TokenType.TO, '->')
                     return Token(TokenType.MINUS, '-')
                 case '*':
                     self.advance()
@@ -31,9 +60,6 @@ class Lexer:
                 case '/':
                     self.advance()
                     return Token(TokenType.DIV, '/')
-                case '=':
-                    self.advance()
-                    return Token(TokenType.EQUALS, '=')
                 case ';':
                     self.advance()
                     return Token(TokenType.SEMICOLON, ';')
@@ -55,8 +81,18 @@ class Lexer:
                 case '.':
                     self.advance()
                     return Token(TokenType.DOT, '.')
+                case '#':
+                    self.advance()
+                    return Token(TokenType.HASHTAG, '#')
+                case '\"':
+                    self.advance()
+                    value = ''
+                    while self.cur is not None and self.cur != '\"':
+                        value += self.cur
+                        self.advance()
+                    self.advance()
+                    return Token(TokenType.IDENTIFIER, f"\"{value}\"")
                 case ':':
-
                     self.advance()
                     if self.cur == '=':
                         self.advance()
@@ -75,12 +111,26 @@ class Lexer:
                         while self.cur is not None and self.cur.isalpha():
                             value += self.cur
                             self.advance()
-                        if value == 'let':
-                            return Token(TokenType.LET, value)
-                        else:
-                            return Token(TokenType.IDENTIFIER, value)
+                        match value:
+                            case 'if':
+                                return Token(TokenType.IF, value)
+                            case 'else':
+                                return Token(TokenType.ELSE, value)
+                            case 'elif':
+                                return Token(TokenType.ELIF, value)
+                            case 'let':
+                                return Token(TokenType.LET, value)
+                            case 'import':
+                                return Token(TokenType.IMPORT, value)
+                            case 'include':
+                                return Token(TokenType.INCLUDE, value)
+                            case 'func':
+                                return Token(TokenType.FUNC, value)
+                            case 'return':
+                                return Token(TokenType.RETURN, value)
+                            case _:
+                                return Token(TokenType.IDENTIFIER, value)
                     else:
                         raise Exception(f'Invalid token: {self.cur}')
         
         return Token(TokenType.EOF, None)  # EOF token'ını döndür
-

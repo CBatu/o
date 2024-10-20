@@ -1,0 +1,9 @@
+#include stdio.h;
+
+func main() -> int {
+    a := 12*12+(12-1);
+    if a == 155{
+        return 0;
+    }
+    return 1;
+}
