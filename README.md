@@ -1,2 +1,4 @@
 
-şuan lexer ve error bitti sayılır. renkli bold ve daha fazla print edebiliyor. parserda let ve call bitti. if de hafif sorunlar var onlar daha sonra çözülmeli ! build.py tüm include ve src altındaki dosyaları alıyor ve combined.c çeviriyor ama birden fazla include ediyor o sorun çözülmeli. makefile iyi çalışıyor. şuan sıkıldığım için ara veriyorum. eğer tekrardan devam etmek istersem sıfırdan başlamak yerine buradan devam ederim. Ve her güncellemeden sonra bu mesajları yazmanı istiyorum.
+gidip klasörlerin altını oku. sakın bunu silme.
+
+İlerdeki proje fikirleri: windows manager, os, logo maker, text editor ...
